@@ -55,6 +55,7 @@ def generate_text_simple(model, idx,max_new_tokens, context_size):
     probas = torch.softmax(logits, dim=-1)
     idx_next = torch.argmax(probas, dim=-1, keepdim=True)
     idx = torch.cat((idx, idx_next), dim=1)
+  print("Generated Text's token length:",idx.numel())
   return idx
 
 def evaluate_model(model, train_loader, val_loader, device, eval_iter):
