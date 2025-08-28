@@ -1,3 +1,8 @@
+from torch import nn
+from transformer import GPT2TransformerBlock
+from transformer import LayerNorm
+import torch
+
 """ GPT-2 Model """
 
 GPT_CONFIG_124M = {
@@ -18,7 +23,7 @@ class GPT2(nn.Module):
     self.pos_embed = nn.Embedding(cfg["context_length"],cfg["emb_dim"])
     self.drop_emb = nn.Dropout(cfg["drop_rate"])
 
-    self.transformers_blocks = nn.ModuleList([TransformerBlock(cfg) for _ in range(cfg["n_layers"])])
+    self.transformers_blocks = nn.ModuleList([GPT2TransformerBlock(cfg) for _ in range(cfg["n_layers"])])
     self.layer_norm = LayerNorm(cfg["emb_dim"])
     self.lm_head = nn.Linear(cfg["emb_dim"],cfg["vocab_size"],bias=False)
 
